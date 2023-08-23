@@ -1,24 +1,22 @@
 #root {
-  max-width: 98%;
-  max-height: 98%;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
 h1 {
-  font-size:5em;
+  font-size:4em;
   line-height: 1.6;
 }
 
 .app-container {
   border:1px solid;
+  padding:10px;
   border-radius:6px;
-  padding:20px;
-  width: 600px;
 }
 
 .switch-container {
-  display: flex;
+  display:flex;
   flex-direction: row;
   padding-top:40px;
 }
@@ -32,6 +30,6 @@ h1 {
 }
 
 .heckinButton {
-  height:140px;
-  width:300px;
+  height:120px;
+  width:250px;
 }

@@ -56,11 +56,9 @@ function App() {
     <>
     <div className="app-container">
       <h1>{glyph}</h1>
-      <div className="card">
         <Button variant="contained" size="large" className="heckinButton" onClick={() => generateRandomGlyph()}>
           Generate a random glyph
         </Button>
-      </div>
 
       <br/>
     </div>
