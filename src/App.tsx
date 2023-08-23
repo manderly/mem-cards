@@ -1,27 +1,25 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import {Button, FormControlLabel, Switch} from "@mui/material";
+import { data } from './assets/data';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeSightWords, setIncludeSightWords] = useState(false);
+  const [includeStates, setIncludeStates] = useState(false);
   const [pool, setPool] = useState(["2023", "Mandi", "Burley"]);
 
-  const [glyph, setGlyph] = useState<string | number>("^_^");
-  const easyNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"];
-  const lettersUppercase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-  const lettersLowercase = lettersUppercase.map((letter) => letter.toLowerCase());
-  const sightWords = ["the", "and", "Liz", "Alex", "Mama", "Daddy", "Illinois", "kid", "but", "one", "five", "tablet", "baby", "water"];
+  const [glyph, setGlyph] = useState<string>("^_^");
 
   const updatePool = () => {
     let pool = [];
-    if (includeNumbers) pool = [...pool, ...easyNumbers];
-    if (includeUppercase) pool = [...pool, ...lettersUppercase];
-    if (includeLowercase) pool = [...pool, ...lettersLowercase];
-    if (includeSightWords) pool = [...pool, ...sightWords];
+    if (includeNumbers) pool = [...pool, ...data.easyNumbers];
+    if (includeUppercase) pool = [...pool, ...data.lettersUppercase];
+    if (includeLowercase) pool = [...pool, ...data.lettersUppercase.map((letter) => letter.toLowerCase())];
+    if (includeSightWords) pool = [...pool, ...data.sightWords];
+    if (includeStates) pool = [...pool, ...data.states];
     setPool(pool);
   }
 
@@ -32,7 +30,7 @@ function App() {
 
   useEffect(() => {
     updatePool();
-  }, [includeNumbers, includeUppercase, includeLowercase, includeSightWords]);
+  }, [includeNumbers, includeUppercase, includeLowercase, includeSightWords, includeStates]);
 
   const handleToggleUppercase = () => {
     setIncludeUppercase((prev) => !prev);
@@ -50,38 +48,35 @@ function App() {
     setIncludeSightWords((prev) => !prev);
   };
 
+  const handleToggleStates = () => {
+    setIncludeStates((prev) => !prev);
+  };
+
   return (
     <>
+    <div className="app-container">
       <h1>{glyph}</h1>
       <div className="card">
-        <button onClick={() => generateRandomGlyph()}>
+        <Button variant="contained" size="large" className="heckinButton" onClick={() => generateRandomGlyph()}>
           Generate a random glyph
-        </button>
+        </Button>
       </div>
 
       <br/>
+    </div>
+
+    <div className="switch-container">
+      <div className="switch-container-column">
+        <FormControlLabel control={<Switch checked={includeUppercase} onChange={() => handleToggleUppercase()} />} label="Uppercase" />
+        <FormControlLabel control={<Switch checked={includeLowercase} onChange={() => handleToggleLowercase()} />} label="Lowercase" />
+        <FormControlLabel control={<Switch checked={includeNumbers} onChange={() => handleToggleNumbers()} />} label="Numbers" />
+      </div>
 
       <div>
-        <label>
-          <input type="checkbox" checked={includeUppercase} onChange={() => handleToggleUppercase()}/>
-          Uppercase
-        </label>
-
-        <label>
-          <input type="checkbox" checked={includeLowercase} onChange={() => handleToggleLowercase()}/>
-          Lowercase
-        </label>
-
-        <label>
-          <input type="checkbox" checked={includeNumbers} onChange={() => handleToggleNumbers()}/>
-          Numbers
-        </label>
-
-        <label>
-          <input type="checkbox" checked={includeSightWords} onChange={() => handleToggleSightWords()}/>
-          Sight Words
-        </label>
+        <FormControlLabel control={<Switch checked={includeSightWords} onChange={() => handleToggleSightWords()} />} label="Sight Words" />
+        <FormControlLabel control={<Switch checked={includeStates} onChange={() => handleToggleStates()} />} label="U.S. States" />
       </div>
+    </div>
     </>
   )
 }
