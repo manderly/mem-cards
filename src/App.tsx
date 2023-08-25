@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import {Button, FormControlLabel, Switch} from "@mui/material";
+import {Box, Button, FormControlLabel, Switch, Tab, Tabs} from "@mui/material";
 import { data } from './assets/data';
 
 function App() {
@@ -52,37 +52,73 @@ function App() {
     setIncludeStates((prev) => !prev);
   };
 
+  function CustomTabPanel(props) {
+    const { children, value, index, ...other } = props;
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box className={"tab-container"}>
+            {children}
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+
   return (
     <>
     <div className="app-container">
-      <div className="app-title">memcards v0.1</div>
-      <div className="switch-container">
-        <div className="switch-container-column">
-          <FormControlLabel control={<Switch checked={includeUppercase} onChange={() => handleToggleUppercase()} />} label="Uppercase" />
-          <FormControlLabel control={<Switch checked={includeLowercase} onChange={() => handleToggleLowercase()} />} label="Lowercase" />
-          <FormControlLabel control={<Switch checked={includeNumbers} onChange={() => handleToggleNumbers()} />} label="Numbers" />
-          <FormControlLabel control={<Switch checked={includeSightWords} onChange={() => handleToggleSightWords()} />} label="Sight Words" />
-          <FormControlLabel control={<Switch checked={includeStates} onChange={() => handleToggleStates()} />} label="U.S. States" />
-        </div>
+        <Tabs value={activeTab} onChange={handleTabChange} aria-label="app-tabs">
+          <Tab label="memcards" {...a11yProps(0)} />
+          <Tab label="settings" {...a11yProps(1)} />
+        </Tabs>
+
+        <CustomTabPanel value={activeTab} index={0}>
+          <div className="mem-card-container">
+            <div className="glyph-container">
+              <div>{glyph}</div>
+            </div>
+            <div>
+              <Button variant="contained" size="large" className="heckinButton" onClick={() => generateRandomGlyph()}>
+                Generate a random glyph
+              </Button>
+            </div>
+          </div>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={activeTab} index={1}>
+          <div className="switch-container">
+            <div className="switch-container-column">
+              <FormControlLabel className="switch-item" control={<Switch checked={includeUppercase} onChange={() => handleToggleUppercase()} />} label="Uppercase" />
+              <FormControlLabel className="switch-item" control={<Switch checked={includeLowercase} onChange={() => handleToggleLowercase()} />} label="Lowercase" />
+              <FormControlLabel className="switch-item" control={<Switch checked={includeNumbers} onChange={() => handleToggleNumbers()} />} label="Numbers" />
+              <FormControlLabel className="switch-item" control={<Switch checked={includeSightWords} onChange={() => handleToggleSightWords()} />} label="Sight Words" />
+              <FormControlLabel className="switch-item" control={<Switch checked={includeStates} onChange={() => handleToggleStates()} />} label="U.S. States" />
+            </div>
+          </div>
+        </CustomTabPanel>
+
+        <div className="app-title">memcards v0.1</div>
       </div>
-
-      <div className="mem-card-container">
-        <div className="glyph-container">
-          <div>{glyph}</div>
-        </div>
-        <div>
-          <Button variant="contained" size="large" className="heckinButton" onClick={() => generateRandomGlyph()}>
-            Generate a random glyph
-          </Button>
-        </div>
-      </div>
-
-      <br/>
-
-
-    </div>
-
-
     </>
   )
 }

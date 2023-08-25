@@ -4,10 +4,16 @@
   text-align: center;
   height:100vh;
   width:100vw;
+  margin-top:20px;
 }
 
 .app-title {
   color:gray;
+}
+
+.tab-container {
+  height: 80vh;
+  display:flex;
 }
 
 .mem-card-container {
@@ -20,9 +26,9 @@
   border:1px solid;
   font-size:calc(1rem + 10vw);
   font-weight:bold;
-  margin:10px;
+  margin:20px;
   border-radius:6px;
-  height:80%;
+  height:70%;
   line-height:0;
   align-items:center;
   justify-content:center;
@@ -44,6 +50,10 @@
   flex-direction: column;
   align-items:flex-start;
   justify-content:flex-start;
+}
+
+.switch-item {
+  margin:5px 0;
 }
 
 .heckinButton {
