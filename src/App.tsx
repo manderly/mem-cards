@@ -55,26 +55,34 @@ function App() {
   return (
     <>
     <div className="app-container">
-      <h1>{glyph}</h1>
-        <Button variant="contained" size="large" className="heckinButton" onClick={() => generateRandomGlyph()}>
-          Generate a random glyph
-        </Button>
+      <div className="app-title">memcards v0.1</div>
+      <div className="switch-container">
+        <div className="switch-container-column">
+          <FormControlLabel control={<Switch checked={includeUppercase} onChange={() => handleToggleUppercase()} />} label="Uppercase" />
+          <FormControlLabel control={<Switch checked={includeLowercase} onChange={() => handleToggleLowercase()} />} label="Lowercase" />
+          <FormControlLabel control={<Switch checked={includeNumbers} onChange={() => handleToggleNumbers()} />} label="Numbers" />
+          <FormControlLabel control={<Switch checked={includeSightWords} onChange={() => handleToggleSightWords()} />} label="Sight Words" />
+          <FormControlLabel control={<Switch checked={includeStates} onChange={() => handleToggleStates()} />} label="U.S. States" />
+        </div>
+      </div>
+
+      <div className="mem-card-container">
+        <div className="glyph-container">
+          <div>{glyph}</div>
+        </div>
+        <div>
+          <Button variant="contained" size="large" className="heckinButton" onClick={() => generateRandomGlyph()}>
+            Generate a random glyph
+          </Button>
+        </div>
+      </div>
 
       <br/>
+
+
     </div>
 
-    <div className="switch-container">
-      <div className="switch-container-column">
-        <FormControlLabel control={<Switch checked={includeUppercase} onChange={() => handleToggleUppercase()} />} label="Uppercase" />
-        <FormControlLabel control={<Switch checked={includeLowercase} onChange={() => handleToggleLowercase()} />} label="Lowercase" />
-        <FormControlLabel control={<Switch checked={includeNumbers} onChange={() => handleToggleNumbers()} />} label="Numbers" />
-      </div>
 
-      <div>
-        <FormControlLabel control={<Switch checked={includeSightWords} onChange={() => handleToggleSightWords()} />} label="Sight Words" />
-        <FormControlLabel control={<Switch checked={includeStates} onChange={() => handleToggleStates()} />} label="U.S. States" />
-      </div>
-    </div>
     </>
   )
 }

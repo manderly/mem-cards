@@ -1,35 +1,52 @@
-#root {
+.app-container {
   display: flex;
   flex-direction: column;
   text-align: center;
+  height:100vh;
+  width:100vw;
 }
 
-h1 {
-  font-size:4em;
-  line-height: 1.6;
+.app-title {
+  color:gray;
 }
 
-.app-container {
+.mem-card-container {
+  flex-direction:column;
+  flex-grow:2;
+}
+
+.glyph-container {
+  display:flex;
   border:1px solid;
-  padding:10px;
+  font-size:calc(1rem + 10vw);
+  font-weight:bold;
+  margin:10px;
   border-radius:6px;
+  height:80%;
+  line-height:0;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  word-break:break-word;
 }
 
 .switch-container {
   display:flex;
   flex-direction: row;
   padding-top:40px;
+  flex-grow:.25;
+  padding-left:10px;
+  justify-content:center;
 }
 
 .switch-container-column {
+  display:flex;
   flex-direction: column;
-}
-
-.card {
-  padding: 2em;
+  align-items:flex-start;
+  justify-content:flex-start;
 }
 
 .heckinButton {
-  height:120px;
-  width:250px;
+  height:100px;
+  width:80%;
 }
